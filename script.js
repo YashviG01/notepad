@@ -115,7 +115,7 @@ const poptitle=newpop.querySelector("header p");
 function edit(indexx,tit,descri){
 
     if_update=true;
-    addbox.click();
+    addbox.addEventListener("click",function(){
     update_index=indexx;
     
     title.value = tit;
@@ -130,9 +130,10 @@ notes[update_index].dateinfo = month + " " + day + " " + year;
     addbtn.innerHTML="complete editing";
 poptitle.innerHTML="Update Note";
 
+})
+
+
 }
-
-
 
 // problem-deletion done bt visible after being refreshed only
  function deletenote(indexx){
