@@ -36,6 +36,7 @@ shownotes();
 
 
 function shownotes(){
+
     notes.forEach((note,index) => {
         // console.log(note.dateinfo);
 
@@ -55,7 +56,7 @@ function shownotes(){
                         '<i class="uil uil-trash"></i>delete</li>' +
                 
                         "<li onclick='showbgoptions(" + index + ")'>" +
-                        "<i class='uil uil-image'></i>Change Background" +
+                        "<i class='uil uil-image'></i>Change" +
                     "</li>" +
                         '</ul>' +
             '</div>' +
@@ -65,7 +66,7 @@ function shownotes(){
     '</li>';
 
 
-        addbox.insertAdjacentHTML('afterend',listtag);
+    addbox.insertAdjacentHTML('afterend',listtag);
 
         
     });
@@ -97,14 +98,6 @@ function showbgoptions(index)
 )
 }
 
-// function changeBackground(index, imageUrl) {
-//     notes[index].backgroundImage = imageUrl; 
-//     localStorage.setItem("notes", JSON.stringify(notes)); // Update local storage
-//     shownotes(); //display fresh now
-
-
-// }
-
 
 
 
@@ -116,10 +109,13 @@ function edit(indexx,tit,descri){
 
     if_update=true;
     addbox.addEventListener("click",function(){
-    update_index=indexx;
-    
-    title.value = tit;
-    descrip.value = descri;//trigger any click eventlistener added on addbox
+   
+        update_index=indexx;
+        // title.value = "";    
+        // descrip.value = "";
+
+title.value = tit;    
+    descrip.value = descri;
 //in order to update the edit date everytime,we'll have to make changes to the date info of notes.THUS=>
     let dateobj = new Date();
 let month = months[dateobj.getMonth()];
