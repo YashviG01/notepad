@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <style>
+
+        body {
+            background-color: #e0f7fa; /* Light cyan */
+            font-family: Arial, sans-serif;
+        }
+
+        #app {
+            max-width: 37.5rem;
+            /* top-bottom+left-right */
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        #user-name {
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #007BFF; /* Bootstrap primary */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: calc(100% - 150px);
+        }
+
+        #login-form, #signup-form, #notes-section {
+            margin-top: 20px;
+            display: none; /* Start hidden */
+        }
+
+        #login-form.active, #signup-form.active, #notes-section.active {
+            display: block; /* Show active form */
+        }
+
+        .google-signup {
+            background-color: #918a8a; /* Google Red */
+            width: 100%;
+        }
+
+        .google-signup:hover {
+            background-color: #C13529; /* Darker Google Red */
+        }
+        .hidden {
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Notes App</h1>
+            <div id="user-name"></div>
+            <button id="logout-button" class="hidden">Logout</button>
+        </header>
+        <main>
+
+
+            <div id="login-form" class="active">
+                <input type="text" id="username" placeholder="Enter your name or email" />
+                <input type="password" id="password" placeholder="Enter your password" />
+                <button id="login-button">Login</button>
+                <button id="show-signup-button">Sign Up</button>
+            </div>
+
+
+            <div id="signup-form">
+                <input type="text" id="signup-email" placeholder="Enter your email" />
+                <input type="password" id="signup-password" placeholder="Create a password" />
+                <input type="password" id="confirm-password" placeholder="Confirm password" />
+                <button id="signup-button">Sign Up</button>
+                <button id="google-signup-button" class="google-signup">Sign Up with Google</button>
+                <button id="show-login-button">Back to Login</button>
+            </div>
+
+
+
+
+            <div id="notes-section">
+                <h2>Your Notes</h2>
+              
+            </div>
+        </main>
+    </div>
+
+
+
+
+    <script>
+        
+        function Forms(showLogin) {
+    if (showLogin) {
+        // means hide login form display sign up
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('signup-form').style.display = 'none';
+    } else {
+        // Show signup form, hide login form
+        document.getElementById('signup-form').style.display = 'block';
+        document.getElementById('login-form').style.display = 'none';
+    }
+}
+
+       //on clicking the signup button show sign up form
+        document.getElementById('show-signup-button').addEventListener('click', function() {
+            Forms(false);
+        });
+
+        document.getElementById('show-login-button').addEventListener('click', function() {
+            Forms(true);
+        });
+
+        document.getElementById('login-button').addEventListener('click', function() {
+            // const usernameInput = document.getElementById('username').value.trim();
+            // const passwordInput = document.getElementById('password').value.trim();
+
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+
+            //checking if both the fiels have been filled
+            if (usernameInput && passwordInput) {
+
+                let users = JSON.parse(localStorage.getItem('users')) || {};
+
+        // Retrieve the stored password for the given username
+        const storedPassword = users[usernameInput];
+
+                // const storedPassword = localStorage.getItem('password_' + usernameInput);
+                
+                if (storedPassword === passwordInput) {
+                    localStorage.setItem('username', usernameInput);
+                   
+                    window.location.href = 'index.html'; // Redirect to index.html
+               //location here means current location info
+                } else {
+                    alert('Invalid username or password.');
+                }
+            } else {
+                alert('Please enter your name/email and password.');
+            }
+        });
+
+
+
+        document.getElementById('signup-button').addEventListener('click', function() {
+            const signupEmail = document.getElementById('signup-email').value;
+            const signupPassword = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const regexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//if all three fiels have been entered
+
+            if (signupEmail && signupPassword && confirmPassword)
+             {
+                //test()->built in method in js to test regex with another values
+                //when they do not match,returns false that is turned to true and body of if executed
+                if (!regexp.test(signupEmail)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                //value and the datatype
+                if (signupPassword !== confirmPassword) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+
+                
+                // Store email and password in localStorage
+                // Initialize users object from localStorage or create a new one
+let users = JSON.parse(localStorage.getItem('users')) || {};
+
+// Store the username and password in the users object
+users[signupEmail] = signupPassword;//key and value
+
+// Save the updated users object back to localStorage
+localStorage.setItem('users', JSON.stringify(users));
+
+                // localStorage.setItem('username', signupEmail);
+                // localStorage.setItem('password_' + signupEmail, signupPassword);
+                window.location.href = 'index.html'; // Redirect to index.html
+            } else {
+                alert('Please fill out all fields.');
+            }
+        });
+
+
+
+        // document.getElementById('google-signup-button').addEventListener('click', function() {
+        //     // Simulate Google signup
+        //     const googleEmail = 'user@google.com'; // Simulated email
+        //     localStorage.setItem('username', googleEmail);
+        //     localStorage.setItem('password_' + googleEmail, 'googlepassword'); // Simulate storing a password
+        //     window.location.href = 'index.html'; // Redirect to index.html
+        // });
+
+        document.getElementById('logout-button').addEventListener('click', function() {
+            localStorage.removeItem('username');
+            // const storedUsername = localStorage.getItem('username');
+            // localStorage.removeItem('password_' + storedUsername);
+            
+            Forms(true);//show login form now
+            displayUsername();
+        });
+
+        function displayUsername() {
+            const storedUsername = localStorage.getItem('username');
+            const userNameDisplay = document.getElementById('user-name');
+
+            
+
+//show logout button when user is logged in
+//don't show log out button when not logged in
+if (storedUsername)//i.e. logged in
+             {
+                // userNameDisplay.innerText = "Welcome";
+                // userNameDisplay.innerText = `Welcome, ${storedUsername}`;
+                document.getElementById('logout-button').classList.remove('hidden');
+            } else {
+                userNameDisplay.innerText = '';
+                document.getElementById('logout-button').classList.add('hidden');
+            }
+        }
+//fired when all dom contents+other resources have been loaded making sure they are accessible
+        // Check if user is already logged in therefore runs when page loads
+        window.onload = function() {
+            displayUsername();
+            Forms(true); // Show login form on load
+        };
+    </script>
+
+
+
+
+</body>
+</html>
