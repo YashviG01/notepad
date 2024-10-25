@@ -14,8 +14,19 @@ const months = [
     "September", "October", "November", "December"
   ];
 
+  window.onload = function() {
+    const storedUsername = localStorage.getItem('username');
+    if (!storedUsername) {
+        window.location.href = 'login.html';
+    } else {
+        displayUsername(); 
+    }
+};
 
-  document.addEventListener("DOMContentLoaded", function () {
+
+
+
+  
     // Function to display username
     function displayUsername() {
         const storedUsername = localStorage.getItem('username'); // Retrieve username from local storage
@@ -28,9 +39,8 @@ const months = [
         }
     }
 
-    // Call the displayUsername function to show the username on load
-    displayUsername();
-});
+  
+
 
 
 // //----------------------------------
