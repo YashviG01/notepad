@@ -142,9 +142,7 @@
         });
 
         document.getElementById('login-button').addEventListener('click', function() {
-            // const usernameInput = document.getElementById('username').value.trim();
-            // const passwordInput = document.getElementById('password').value.trim();
-
+           
             const usernameInput = document.getElementById('username').value;
             const passwordInput = document.getElementById('password').value;
 
@@ -214,47 +212,35 @@ localStorage.setItem('users', JSON.stringify(users));
         });
 
 
-
-        // document.getElementById('google-signup-button').addEventListener('click', function() {
-        //     // Simulate Google signup
-        //     const googleEmail = 'user@google.com'; // Simulated email
-        //     localStorage.setItem('username', googleEmail);
-        //     localStorage.setItem('password_' + googleEmail, 'googlepassword'); // Simulate storing a password
-        //     window.location.href = 'index.html'; // Redirect to index.html
-        // });
-
-        document.getElementById('logout-button').addEventListener('click', function() {
-            localStorage.removeItem('username');
-            // const storedUsername = localStorage.getItem('username');
+//         document.getElementById('logout-button').addEventListener('click', function() {
+//             localStorage.removeItem('username');
+//             // const storedUsername = localStorage.getItem('username');
             
-            Forms(true);//show login form now
-            displayUsername();
-        });
+//             Forms(true);//show login form now
+//             displayUsername();
+//         });
 
-        function displayUsername() {
-            const storedUsername = localStorage.getItem('username');
-            const userNameDisplay = document.getElementById('user-name');
-
-            
-
-//show logout button when user is logged in
-//don't show log out button when not logged in
-if (storedUsername)//i.e. logged in
-             {
-                // userNameDisplay.innerText = "Welcome";
-                // userNameDisplay.innerText = `Welcome, ${storedUsername}`;
-                document.getElementById('logout-button').classList.remove('hidden');
-            } else {
-                userNameDisplay.innerText = '';
-                document.getElementById('logout-button').classList.add('hidden');
-            }
-        }
-//fired when all dom contents+other resources have been loaded making sure they are accessible
-        // Check if user is already logged in therefore runs when page loads
-        window.onload = function() {
-            displayUsername();
-            Forms(true); // Show login form on load
-        };
+//         function displayUsername() {
+//             const storedUsername = localStorage.getItem('username');
+//             const userNameDisplay = document.getElementById('user-name');
+// //show logout button when user is logged in
+// //don't show log out button when not logged in
+// if (storedUsername)//i.e. logged in
+//              {
+//                 // userNameDisplay.innerText = "Welcome";
+//                 // userNameDisplay.innerText = `Welcome, ${storedUsername}`;
+//                 document.getElementById('logout-button').classList.remove('hidden');
+//             } else {
+//                 userNameDisplay.innerText = '';
+//                 document.getElementById('logout-button').classList.add('hidden');
+//             }
+//         }
+// //fired when all dom contents+other resources have been loaded making sure they are accessible
+//         // Check if user is already logged in therefore runs when page loads
+//         window.onload = function() {
+//             displayUsername();
+//             Forms(true); // Show login form on load
+//         };
     </script>
 
 
